@@ -1,6 +1,6 @@
 import numpy as np
 
-def jacobi(A, E=1e-10, max_iterations=1000):
+def jacobi(A, E=1e-12, max_iterations=100000):
     n = A.shape[0]
     V = np.eye(n)  
     for _ in range(max_iterations):
@@ -19,17 +19,20 @@ def jacobi(A, E=1e-10, max_iterations=1000):
         J[j, j] = c
         J[i, j] = s
         J[j, i] = -s
-        A = J.T @ A @ J
+        A = J @ A 
         V = V @ J
 
     eigenvalues = np.diag(A)
     return eigenvalues, V
 
-# Example symmetric matrix
-A = np.array([[4, -2, 2],
-              [-2, 4, 2],
-              [2, 2, 4]])
 
-eigenvalues, eigenvectors = jacobi(A)
+A = np.loadtxt('A.txt')
+print(A)
+values, vectors = jacobi(A)
 
-print(eigenvalues," - Cобственные значения \n Матрица собственных векторов(матрица вращений) : \n ", eigenvectors)
+with open('ans.txt', 'w') as file:
+    print(values,"- [lambda]\n", vectors, file=file)
+
+for i in range(len(vectors)):
+    col = vectors[:, i]
+    print(A @ col - values[i] * col)
