@@ -25,7 +25,7 @@ y_exact = np.sin(t_exact)
 
 plt.figure(figsize=(10, 6))
 plt.plot(t_exact, y_exact, label='Точное решение ($y = \sin(t)$)', color='blue', linestyle='--')
-plt.plot(t_approx, y_approx, label='Приближенное решение (Адамс-Башфорт)', color='red', marker='o', markersize=4, linestyle='none')
+plt.plot(t_approx, y_approx, label='Приближенное решение неявным методом Адамса', color='red', marker='o', markersize=4, linestyle='none')
 plt.title('Сравнение точного и приближенного решений')
 plt.xlabel('t')
 plt.ylabel('y')
